@@ -63,6 +63,18 @@ module.exports = {
       {
         test: /\.(png|jpg|gif|woff|woff2)$/,
         loader: 'url-loader?limit=8192'
+      },
+      {
+        test: /\.eot$/,
+        loader: 'file-loader'
+      },
+      {
+        test: /\.svg$/,
+        loader: 'url-loader?limit=10000&mimetype=image/svg+xml'
+      },
+      {
+        test: /\.ttf$/,
+        loader: 'url-loader?limit=10000&mimetype=application/octet-stream'
       }
     ]
   }

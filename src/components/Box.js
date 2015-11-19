@@ -12,11 +12,11 @@ class Box extends React.Component {
   render() {
     let pauseState = this.props.paused ? 'Unpause' : 'Pause';
     return (
-      <div>
-        <h1>{this.props.name}</h1>
+      <li className="table-view-cell" onClick={this.handlePause.bind(this)}>
+        <h2>{this.props.name}</h2>
         {this.formattedTime()}
-        <a href="#" onClick={this.handlePause.bind(this)} className="pause">{pauseState}</a>
-      </div>
+        <button className="pause btn">{pauseState}</button>
+      </li>
     );
   }
 }

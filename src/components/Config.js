@@ -16,18 +16,24 @@ export default class Config extends React.Component {
   }
   render() {
     return <div>
-      <h1>Config</h1>
-      {this.props.boxes.map(({id, name}) => (
-            <div key={id}>
+      <header className="bar bar-nav">
+        <a href="#" onClick={this.handleExit.bind(this)} className="icon icon-left-nav pull-left close"></a>
+        <h1>Config</h1>
+      </header>
+      <div className="content">
+        <ul className="table-view">
+          {this.props.boxes.map(({id, name}) => (
+            <li key={id} className="table-view-cell">
               <strong>{name}</strong>
-              <a href="#" className="btn" onClick={this.handleRemove.bind(this, id)}>Remove</a>
-            </div>
+              <button className="btn btn-negative" onClick={this.handleRemove.bind(this, id)}>Remove</button>
+            </li>
           ))}
-      <form onSubmit={this.handleAdd.bind(this)}>
-        <input name="box-name" type="text" />
-        <input type="submit" />
-      </form>
-      <a href="#" className="close" onClick={this.handleExit.bind(this)}>Exit</a>
+        </ul>
+        <form onSubmit={this.handleAdd.bind(this)}>
+          <input name="box-name" type="text" placeholder="Add a box" />
+          <input type="submit" className="btn btn-positive btn-block" value="Save" />
+        </form>
+      </div>
     </div>;
   }
 }

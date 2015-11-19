@@ -1,4 +1,3 @@
-require('normalize.css');
 require('styles/App.scss');
 
 import React from 'react';
@@ -84,8 +83,15 @@ class AppComponent extends React.Component {
   }
   renderBoxes() {
     return <div>
-      <a href="#" onClick={this.toggleConfig.bind(this)}>Toggle!</a>
-      {this.state.boxes.map((box) => <Box key={box.id} {...box} onPause={this.togglePause.bind(this)} />)}
+      <header className="bar bar-nav">
+        <a href="#" onClick={this.toggleConfig.bind(this)} className="icon icon-gear pull-right"></a>
+        <h1>Timebox</h1>
+      </header>
+      <div className="content">
+        <ul className="table-view">
+          {this.state.boxes.map((box) => <Box key={box.id} {...box} onPause={this.togglePause.bind(this)} />)}
+        </ul>
+      </div>
     </div>;
   }
 
