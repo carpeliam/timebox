@@ -82,15 +82,21 @@ class AppComponent extends React.Component {
     return <Config boxes={this.state.boxes} onAdd={this.addBox.bind(this)} onRemove={this.removeBox.bind(this)} onExit={this.toggleConfig.bind(this)} />;
   }
   renderBoxes() {
+    let boxes = this.state.boxes.map((box) => <Box key={box.id} {...box} onPause={this.togglePause.bind(this)} />);
     return <div>
       <header className="bar bar-nav">
         <a href="#" onClick={this.toggleConfig.bind(this)} className="icon icon-gear pull-right"></a>
         <h1>Timebox</h1>
       </header>
       <div className="content">
-        <ul className="table-view">
-          {this.state.boxes.map((box) => <Box key={box.id} {...box} onPause={this.togglePause.bind(this)} />)}
-        </ul>
+        {boxes.length
+          ? <ul className="table-view">
+              {boxes}
+            </ul>
+          : <p className="content-padded">
+              You don't have any time boxes. Why don't you <a href="#" onClick={this.toggleConfig.bind(this)}>add one?</a>
+            </p>
+        }
       </div>
     </div>;
   }
