@@ -9,16 +9,16 @@ import TestUtils from 'react-addons-test-utils';
 import Box from 'components/Box';
 
 describe('Box', () => {
-  let pauseSpy;
+  let activateSpy;
   let box;
   beforeEach(() => {
-    pauseSpy = sinon.spy();
-    box = TestUtils.renderIntoDocument(<Box id={1} key={1} onPause={pauseSpy} />);
+    activateSpy = sinon.spy();
+    box = TestUtils.renderIntoDocument(<Box id={1} key={1} onActivate={activateSpy} />);
   });
-  it('calls onPause callback on Pause', () => {
-    let pauseLink = TestUtils.findRenderedDOMComponentWithClass(box, 'pause');
-    TestUtils.Simulate.click(pauseLink);
+  it('calls onActivate callback upon activation', () => {
+    let activateLink = TestUtils.findRenderedDOMComponentWithClass(box, 'activate');
+    TestUtils.Simulate.click(activateLink);
 
-    expect(pauseSpy).to.have.been.calledWith(1);
+    expect(activateSpy).to.have.been.calledWith(1);
   });
 });

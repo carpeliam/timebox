@@ -39,7 +39,7 @@ class AppComponent extends React.Component {
     let boxes = this.state.boxes;
     let lastBox = boxes[boxes.length - 1]
     let newId = lastBox ? lastBox.id + 1 : 1;
-    boxes.push({id: newId, name, duration: 0});
+    boxes.push({id: newId, name, duration: 0, active: false});
     this.setState({boxes}, () => {
       localStorage.setItem('timebox.boxes', JSON.stringify(this.state.boxes));
     });
@@ -58,10 +58,11 @@ class AppComponent extends React.Component {
     }
   }
 
-  togglePause(boxId) {
+  toggleActive(boxId) {
     let boxes = this.state.boxes;
-    let pausedBox = boxes.find((box) => box.id === boxId);
-    pausedBox.paused = !pausedBox.paused;
+    boxes.forEach((box) => {
+      box.active = !box.active && box.id === boxId;
+    });
     this.setState({boxes});
   }
 
@@ -69,9 +70,9 @@ class AppComponent extends React.Component {
     let now = new Date().getTime();
     let lastCheckTime = this.state.lastCheckTime || now;
     let elapsed = now - lastCheckTime;
-    let boxes = this.state.boxes.map(({id, name, duration, paused}) => {
-      duration = paused ? duration : duration + elapsed;
-      return {id, name, duration, paused};
+    let boxes = this.state.boxes.map(({id, name, duration, active}) => {
+      if (active) duration += elapsed;
+      return {id, name, duration, active};
     });
     this.setState({lastCheckTime: now, boxes}, () => {
       localStorage.setItem('timebox.boxes', JSON.stringify(this.state.boxes));
@@ -82,7 +83,7 @@ class AppComponent extends React.Component {
     return <Config boxes={this.state.boxes} onAdd={this.addBox.bind(this)} onRemove={this.removeBox.bind(this)} onExit={this.toggleConfig.bind(this)} />;
   }
   renderBoxes() {
-    let boxes = this.state.boxes.map((box) => <Box key={box.id} {...box} onPause={this.togglePause.bind(this)} />);
+    let boxes = this.state.boxes.map((box) => <Box key={box.id} {...box} onActivate={this.toggleActive.bind(this)} />);
     return <div>
       <header className="bar bar-nav">
         <a href="#" onClick={this.toggleConfig.bind(this)} className="icon icon-gear pull-right"></a>

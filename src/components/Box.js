@@ -6,16 +6,16 @@ class Box extends React.Component {
   formattedTime() {
     return moment.duration(this.props.duration).format('h:mm:ss', {trim: false});
   }
-  handlePause() {
-    this.props.onPause(this.props.id);
+  handleActivation() {
+    this.props.onActivate(this.props.id);
   }
   render() {
-    let pauseState = this.props.paused ? 'Unpause' : 'Pause';
+    let activeState = this.props.active ? 'Pause' : 'Start';
     return (
-      <li className="table-view-cell" onClick={this.handlePause.bind(this)}>
+      <li className="table-view-cell" onClick={this.handleActivation.bind(this)}>
         <h2>{this.props.name}</h2>
         {this.formattedTime()}
-        <button className="pause btn">{pauseState}</button>
+        <button className="activate btn">{activeState}</button>
       </li>
     );
   }
