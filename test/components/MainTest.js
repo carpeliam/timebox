@@ -134,6 +134,44 @@ describe('MainComponent', () => {
     });
   });
 
+  describe('resetBox', () => {
+    it('resets the time for a given box', () => {
+      let main = createMain([
+        {id: 1, name: 'First', duration: 42, active: false},
+        {id: 2, name: 'Second', duration: 42, active: false}
+      ]);
+
+      main.resetBox(2);
+      expect(main.state.boxes).to.deep.equal([
+        {id: 1, name: 'First', duration: 42, active: false},
+        {id: 2, name: 'Second', duration: 0, active: false}
+      ]);
+      expect(setItemStub).to.have.been.calledWith('timebox.boxes', JSON.stringify([
+        {id: 1, name: 'First', duration: 42, active: false},
+        {id: 2, name: 'Second', duration: 0, active: false}
+      ]));
+    });
+  });
+
+  describe('resetAll', () => {
+    it('pauses and resets the time for all boxes', () => {
+      let main = createMain([
+        {id: 1, name: 'First', duration: 42, active: true},
+        {id: 2, name: 'Second', duration: 42, active: false}
+      ]);
+
+      main.resetAll();
+      expect(main.state.boxes).to.deep.equal([
+        {id: 1, name: 'First', duration: 0, active: false},
+        {id: 2, name: 'Second', duration: 0, active: false}
+      ]);
+      expect(setItemStub).to.have.been.calledWith('timebox.boxes', JSON.stringify([
+        {id: 1, name: 'First', duration: 0, active: false},
+        {id: 2, name: 'Second', duration: 0, active: false}
+      ]));
+    });
+  });
+
   describe('toggleActive', () => {
     let main;
     beforeEach(() => {

@@ -1,5 +1,3 @@
-require('styles/App.scss');
-
 import React from 'react';
 
 import Config from './Config';
@@ -58,6 +56,30 @@ class AppComponent extends React.Component {
     }
   }
 
+  resetBox(id) {
+    let boxes = this.state.boxes;
+    for (let i = 0; i < boxes.length; i++) {
+      if (id === boxes[i].id) {
+        boxes[i].duration = 0;
+        this.setState({boxes}, () => {
+          localStorage.setItem('timebox.boxes', JSON.stringify(this.state.boxes));
+        });
+        return;
+      }
+    }
+  }
+
+  resetAll() {
+    let boxes = this.state.boxes;
+    for (let i = 0; i < boxes.length; i++) {
+      boxes[i].duration = 0;
+      boxes[i].active = false;
+    }
+    this.setState({boxes}, () => {
+      localStorage.setItem('timebox.boxes', JSON.stringify(this.state.boxes));
+    });
+  }
+
   toggleActive(boxId) {
     let boxes = this.state.boxes;
     boxes.forEach((box) => {
@@ -80,7 +102,11 @@ class AppComponent extends React.Component {
   }
 
   renderConfig() {
-    return <Config boxes={this.state.boxes} onAdd={this.addBox.bind(this)} onRemove={this.removeBox.bind(this)} onExit={this.toggleConfig.bind(this)} />;
+    return <Config boxes={this.state.boxes} onAdd={this.addBox.bind(this)}
+            onRemove={this.removeBox.bind(this)}
+            onReset={this.resetBox.bind(this)}
+            onResetAll={this.resetAll.bind(this)}
+            onExit={this.toggleConfig.bind(this)} />;
   }
   renderBoxes() {
     let boxes = this.state.boxes.map((box) => <Box key={box.id} {...box} onActivate={this.toggleActive.bind(this)} />);

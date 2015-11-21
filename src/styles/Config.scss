@@ -1,0 +1,11 @@
+@import '~ratchet/sass/mixins.scss';
+
+.btn-group {
+  .btn {
+    margin-left: 8px;
+  }
+  @include transform(translateY(-50%));
+  position: absolute;
+  right: 15px;
+  top: 50%;
+}
