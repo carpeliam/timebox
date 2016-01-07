@@ -8,7 +8,8 @@ class AppComponent extends React.Component {
   constructor() {
     super();
     let boxes = JSON.parse(localStorage.getItem('timebox.boxes') || '[]');
-    this.state = {boxes, showConfig: false};
+    let lastCheckTime = JSON.parse(localStorage.getItem('timebox.lastCheckTime'));
+    this.state = {boxes, lastCheckTime, showConfig: false};
   }
   componentDidMount() {
     this.startTimer();
@@ -98,6 +99,7 @@ class AppComponent extends React.Component {
     });
     this.setState({lastCheckTime: now, boxes}, () => {
       localStorage.setItem('timebox.boxes', JSON.stringify(this.state.boxes));
+      localStorage.setItem('timebox.lastCheckTime', this.state.lastCheckTime);
     });
   }
 

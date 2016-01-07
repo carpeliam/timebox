@@ -32,6 +32,7 @@ describe('MainComponent', () => {
 
   function createMain(initialStorage=[]) {
     getItemStub.withArgs('timebox.boxes').returns(JSON.stringify(initialStorage));
+    getItemStub.withArgs('timebox.lastCheckTime').returns(JSON.stringify(clock.now));
     return TestUtils.renderIntoDocument(<Main />);
   }
 
@@ -40,6 +41,13 @@ describe('MainComponent', () => {
 
     expect(getItemStub).to.have.been.called;
     expect(main.state.boxes).to.deep.equal([{id: 1, name: 'Default', duration: 42}]);
+  });
+
+  it('keeps track of the last checked time', () => {
+    let main = createMain();
+
+    expect(getItemStub).to.have.been.called;
+    expect(main.state.lastCheckTime).to.equal(clock.now);
   });
 
   it('starts a timer immediately after mounting', () => {
@@ -214,6 +222,15 @@ describe('MainComponent', () => {
         {id: 1, name: 'One', duration: 1001, active: true},
         {id: 2, name: 'Two', duration: 1, active: false}
       ]));
+    });
+
+    it('should update the last checked time', () => {
+      let main = createMain();
+      expect(main.state.lastCheckTime).to.equal(clock.now);
+
+      clock.tick(1000);
+      main.incrementDurations();
+      expect(setItemStub).to.have.been.calledWith('timebox.lastCheckTime', clock.now);
     });
   });
 });
