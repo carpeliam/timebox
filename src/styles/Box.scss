@@ -1,0 +1,5 @@
+@import '~ratchet/sass/variables.scss';
+
+.table-view-cell.active {
+  background-color: $positive-color;
+}
