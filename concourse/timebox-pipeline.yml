@@ -11,4 +11,4 @@ jobs:
   - get: timebox-src
     trigger: true
   - task: run-build
-    file: timebox-src/concourse/build.sh
+    file: timebox-src/concourse/build.yml

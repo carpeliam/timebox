@@ -1,0 +1,13 @@
+---
+platform: linux
+
+image_resource:
+  type: docker-image
+  source:
+    repository: {repository: busybox}
+
+inputs:
+- name: timebox-src
+
+run:
+  path: timebox-src/concourse/build.sh
