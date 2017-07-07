@@ -1,0 +1,12 @@
+---
+platform: linux
+
+image_resource:
+  type: docker-image
+  source: {repository: mwallasch/docker-ruby-node}
+
+inputs:
+- name: timebox-src
+
+run:
+  path: timebox-src/concourse/npm-test.sh

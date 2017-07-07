@@ -9,4 +9,4 @@ inputs:
 - name: timebox-src
 
 run:
-  path: timebox-src/concourse/build.sh
+  path: timebox-src/concourse/npm-install.sh

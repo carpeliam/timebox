@@ -10,5 +10,7 @@ jobs:
   plan:
   - get: timebox-src
     trigger: true
-  - task: run-build
-    file: timebox-src/concourse/build.yml
+  - task: npm-install
+    file: timebox-src/concourse/npm-install.yml
+  - task: npm-test
+    file: timebox-src/concourse/npm-test.yml
