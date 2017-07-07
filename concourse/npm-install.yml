@@ -8,5 +8,8 @@ image_resource:
 inputs:
 - name: timebox-src
 
+outputs:
+- name: timebox-installed
+
 run:
   path: timebox-src/concourse/npm-install.sh
