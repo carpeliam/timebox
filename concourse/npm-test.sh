@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-pushd timebox-src
+pushd timebox-installed
 
 npm test
 

@@ -6,7 +6,8 @@ image_resource:
   source: {repository: mwallasch/docker-ruby-node}
 
 inputs:
+- name: timebox-src
 - name: timebox-installed
 
 run:
-  path: timebox-installed/concourse/npm-test.sh
+  path: timebox-src/concourse/npm-test.sh
