@@ -3,7 +3,9 @@ platform: linux
 
 image_resource:
   type: docker-image
-  source: {repository: mkenney/docker-npm}
+  source:
+    repository: mkenney/docker-npm
+    tag: alpine
 
 inputs:
 - name: timebox-src
