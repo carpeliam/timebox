@@ -13,4 +13,4 @@ jobs:
   - task: npm-install
     file: timebox-src/concourse/npm-install.yml
   - task: npm-test
-    file: timebox-src/concourse/npm-test.yml
+    file: timebox-installed/concourse/npm-test.yml
